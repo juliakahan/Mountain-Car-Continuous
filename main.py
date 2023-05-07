@@ -15,6 +15,7 @@ def discretize_state(state):
 # Inicjalizacja tablicy Q
 def init_q_table():
     q_table = {}
+    # 201 * 201 * 100 * 100 ~ 400 000 000, dużo u mnie sie nie dolicza
     for i in range(-100, 101):
         for j in range(-100, 101):
             for k in range(-50, 51):
