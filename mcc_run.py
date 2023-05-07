@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pickle
 
-from assets import *
+from utility import *
 
 if __name__ == '__main__':
     num_of_steps_per_episode = 1000
