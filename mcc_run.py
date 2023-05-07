@@ -1,17 +1,18 @@
 import gymnasium as gym
 import numpy as np
-import matplotlib.pyplot as plt
 import pickle
 
 from utility import *
 
-if __name__ == '__main__':
-    num_of_steps_per_episode = 1000
+# change to true if you can use Q from learning state
+use_learned_Q = False
 
+if __name__ == '__main__':
     env = gym.make('MountainCar-v0', render_mode="human")
 
-    pickle_in = open('mountaincar.pkl', 'rb')
-    Q = pickle.load(pickle_in)
+    if use_learned_Q:
+        pickle_in = open('mountaincar.pkl', 'rb')
+        Q = pickle.load(pickle_in)
 
     terminated = False
     truncated = False
@@ -22,7 +23,10 @@ if __name__ == '__main__':
     score = 0
 
     while not (terminated or truncated):
-        action = max_action(Q, state)
+        if use_learned_Q:
+            action = max_action(Q, state)
+        else:
+            action = np.random.choice(action_space)
 
         obs_new, reward, terminated, truncated, info = env.step(action)
         state = get_state(obs_new)
