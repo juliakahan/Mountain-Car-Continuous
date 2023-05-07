@@ -1,4 +1,4 @@
-# Mountain Car Countinous 
+# Mountain Car
 ### files:
 * mcc_learn.py
 * mcc_run.py
