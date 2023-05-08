@@ -5,13 +5,16 @@ import pickle
 from utility import *
 
 # change to true if you can use Q from learning state
-use_learned_Q = False
+use_learned_Q = True
 
 if __name__ == '__main__':
-    env = gym.make('MountainCar-v0', render_mode="human")
+    num_of_steps_per_episode = 1000
+
+    env = gym.make('MountainCar-v0',
+                   max_episode_steps=num_of_steps_per_episode, render_mode="human")
 
     if use_learned_Q:
-        pickle_in = open('mountaincar.pkl', 'rb')
+        pickle_in = open('mountaincar_new.pkl', 'rb')
         Q = pickle.load(pickle_in)
 
     terminated = False

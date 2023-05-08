@@ -1,6 +1,7 @@
 import gymnasium as gym
 import numpy as np
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 import pickle
 
 from utility import *
@@ -28,7 +29,7 @@ if __name__ == '__main__':
         for action in action_space:
             Q[state, action] = 0
 
-    for episode in range(num_of_episodes):
+    for episode in tqdm(range(num_of_episodes)):
         terminated = False
         truncated = False
 
@@ -57,14 +58,16 @@ if __name__ == '__main__':
         eps = eps - 2/num_of_episodes if eps > 0.01 else 0.01
 
         scores[episode] = score
-        if episode % 100 == 0:
+        if episode % (num_of_episodes // 10) == 0 and episode > 0:
             print("Episode:", episode, "Score:", score, "epsilon:", eps)
+    #last score
+    print("Last score:", score)
 
     env.close()
 
     plt.plot(scores)
     plt.savefig('scores_mcc.png')
 
-    f = open("mountaincar.pkl", "wb")
+    f = open("mountaincar_new.pkl", "wb")
     pickle.dump(Q, f)
     f.close()
